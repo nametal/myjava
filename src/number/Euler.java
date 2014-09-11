@@ -1,6 +1,7 @@
 package number;
 
 
+
 public class Euler {
 	/* 1. Multiples of 3 or 5 */
 	// my solution (easy way)
@@ -9,6 +10,7 @@ public class Euler {
 		for (int i = 1; i < n; i++) c += (i%3==0 || i%5==0) ? i : 0;
 		return c;
 	}
+	
 	// efficient way
 	public static int sumDivisibleBy(int n, int x) {
 		int p = n / x;
@@ -44,7 +46,8 @@ public class Euler {
 		}
 		return p;
 	}
-	// more efficient
+	
+	// more efficient way
 	public static int largestPrimeFactor2(long n) {
 		int p = 1;
 		while(n%2==0) { // since 2 is the only even prime, we can treat it separately
@@ -59,12 +62,60 @@ public class Euler {
 		}
 		return p;
 	}
+	/* End of 3 */
+	
+	/* 4. Largest palindrome product */
+	// my solution
+	public static boolean isPalindromeNum(int n) {
+		String s = String.valueOf(n);
+		int d = s.length();
+		int j = d-1;
+		for (int i = 0; i < d/2; i++) {
+//			System.out.println("s"+"["+i+"]="+s.charAt(i)+" vs s"+"["+j+"]=" + s.charAt(j));
+			if(s.charAt(i) != s.charAt(j--)) return false;
+		}
+		return true;
+	}
+	public static int largestPalindromeProduct(int digit) {
+		int max = (int)Math.pow(10,(double)digit);
+		int min = max/10;
+		int p = 0;
+		int largestP = 0;
+		String products = "";
+		for (int x = max-1; x > min-1; x--) {
+			for (int y = x; y > min-1; y--) {
+				p = x*y;
+//				System.out.println(i + " x " + j + "\t" + p);
+				if(p <= largestP) break; // stop checking because x*y is going to be smaller
+				if(isPalindromeNum_f(p)) {
+					largestP = p; // automatically p > largestP
+					products = x + " x " + y;
+				}
+			}
+		}
+		System.out.println(products);
+		return largestP;
+	}
+	
+	// efficient palindrome for number
+	public static boolean isPalindromeNum_f(int n) {
+		int ori = n;
+		int rev = 0;
+		while(n>0) {
+			rev = 10*rev + n % 10;
+			n /= 10;
+		}
+		return ori==rev;
+	}
 	
 	public static void main(String[] args) {
 		/*int n=1000;
 		System.out.println(multiplesBy3Or5(n));
 		System.out.println(multiplesBy3Or5_f(n));*/
 //		System.out.println(sumOfEvenFibo(4000000));
-		System.out.println(largestPrimeFactor2(600851475143L));
+//		System.out.println(largestPrimeFactor2(600851475143L));
+//		System.out.println(isPalindromeNum(9009));
+//		System.out.println(isPalindromeNum_f(9009));
+		System.out.println(largestPalindromeProduct(3));
 	}
 }
