@@ -199,7 +199,25 @@ public class Euler {
 		return (c-a-b>0) && (c*c == a*a + b*b);
 	}
 	
+	public static int largestPythagTriplet() {
+		// TODO
+		return 0;
+	}
+	/* End of 9 */
 	
+	/* 10. Summation of primes */
+	public static long sumOfPrimeBelow(long n) {
+		long s = 2;
+		if(n<2) s=0;
+		for (int i = 3; i<n; i+=2) {
+			if(isPrime(i)) {
+				s += i;
+				System.out.println(i);
+			}
+		}
+		return s;
+	}
+	/* End of 10 */
 	
 	public static void main(String[] args) {
 		/*int n=1000;
@@ -215,6 +233,7 @@ public class Euler {
 //		System.out.println(sumSquareDiff(100));
 //		System.out.println(primeAt(10001));
 //		String s = "9781797784617";
-		System.out.println(largestProductInSeries(DIGITS, 13));
+//		System.out.println(largestProductInSeries(DIGITS, 13));
+		System.out.println(sumOfPrimeBelow(2000000));
 	}
 }
