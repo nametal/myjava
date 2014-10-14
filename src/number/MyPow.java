@@ -14,14 +14,15 @@ public class MyPow {
 				return Double.POSITIVE_INFINITY;
 			return 0;
 		}
-		if(b%2==0) 
-			return BigDecimal.valueOf(pow(a,b/2)).multiply(BigDecimal.valueOf(pow(a,b/2))).doubleValue();
-		else {
+		if(b<0) 
+			return 1/pow(a,-b);
+		if(b%2==0) { 
+			BigDecimal temp = BigDecimal.valueOf(pow(a,b/2));
+			return temp.multiply(temp).doubleValue();
+		} else {
 			if(b%1!=0) { // fractional exponent
 				return Double.NaN; // TODO this1
 			}
-			if(b<0) 
-				return 1/a*pow(a,b+1);
 			return a*pow(a,b-1);
 		}
 	}

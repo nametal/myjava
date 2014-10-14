@@ -22,9 +22,12 @@ public class Tezt {
 			if(n>=0) return 0;
 			return Double.POSITIVE_INFINITY;
 		}
-		if(n%2==0) return powR(x,n/2) * powR(x,n/2);
-		if(n>0) return x * powR(x,n-1);
-		return 1/x * powR(x,n+1);
+		if(n<0) return 1 / powR(x,-n);
+		if(n%2==0) {
+			double a = powR(x,n/2); // ensure not to call recursion twice
+			return a * a;
+		}
+		return x * powR(x,n-1);
 	}
 	
 	public static void main(String[] args) {
