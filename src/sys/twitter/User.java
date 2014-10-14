@@ -2,37 +2,48 @@ package sys.twitter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.UUID;
 
 public class User {
 	int userId;
 	String name;
+	Server server;
 	
-	ArrayList<User> follows = new ArrayList<User>();
-	ArrayList<User> followers = new ArrayList<User>();
+	ArrayList<Integer> follows = new ArrayList<Integer>();
+	ArrayList<Integer> followers = new ArrayList<Integer>();
 	ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	ArrayList<Message> messages = new ArrayList<Message>();
 	ArrayList<List> lists = new ArrayList<List>();
 	
-	public User(String name) {
-		this.userId = UUID.randomUUID().hashCode();
+	public User(Server s, int userId, String name) {
+		this.userId =  userId;
 		this.name = name;
+		this.server = s;
+		s.users.add(this);
 	}
 	
-	public void follow(User u) {
-		u.followedBy(this);
-		this.follows.add(u);
+	public void follow(int userId) {
+		User u = findUser(userId);
+		u.followedBy(this.userId);
+		this.follows.add(userId);
 	}
 	
-	private void followedBy(User u) {
-		this.followers.add(u);
+	public User findUser(int userId) {
+		for(User u:server.users) {
+			if(u.userId == userId)
+				return u;
+		}
+		return null;
 	}
 	
-	public ArrayList<User> getFollowings() {
+	private void followedBy(int userId) {
+		this.followers.add(userId);
+	}
+	
+	public ArrayList<Integer> getFollowings() {
 		return this.follows;
 	}
 
-	public ArrayList<User> getFollowers() {
+	public ArrayList<Integer> getFollowers() {
 		return this.followers;
 	}
 	

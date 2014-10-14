@@ -2,11 +2,13 @@ package sys.twitter;
 
 public class Twitter {
 	public static void main(String[] args) {
-		User user1 = new User("nametal");
-		User user2 = new User("agnezmo");
-		User user3 = new User("mario_teguh");
-		user1.follow(user2);
-		user1.follow(user3);
+		Server s = new Server();
+		
+		User user1 = new User(s, 1, "nametal");
+		User user2 = new User(s, 2, "agnezmo");
+		User user3 = new User(s, 3, "mario_teguh");
+		user1.follow(user2.getUserId());
+		user1.follow(user3.getUserId());
 		
 		System.out.println(user1.getFollowings());
 		
