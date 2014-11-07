@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class CSVReader {
-	private static final String delim = ",";
+	private static final String DELIMITER = ",";
 	public static void main(String[] args) {
 		String csvFilename = "customers.csv";
 		Map<String, String[]> header = readCSV(csvFilename, true);
@@ -37,7 +37,7 @@ public class CSVReader {
 			if(isHeader) {
 				row = new HashMap<String, String[]>();
 				if ( (line = br.readLine()) != null ) { // read header
-					String[] cols = line.split(delim);
+					String[] cols = line.split(DELIMITER);
 					String[] next = new String[3];
 					next[0] = cols[1].trim();
 					next[1] = cols[2].trim();
@@ -48,7 +48,7 @@ public class CSVReader {
 				row = new TreeMap<String, String[]>(); // TreeMap automatically sort keys
 				br.readLine(); // skip first row
 				while ( (line = br.readLine()) != null ) { // read data
-					String[] cols = line.split(delim);
+					String[] cols = line.split(DELIMITER);
 					
 					String[] data = row.get(cols[0].trim()); // name as key
 					
@@ -96,7 +96,7 @@ public class CSVReader {
 				fw.append(key);
 				String[] isi = map.get(key);
 				for (int i = 0; i < isi.length; i++) {
-					fw.append(delim);
+					fw.append(DELIMITER);
 					fw.append(isi[i]==null ? "" : isi[i]);
 				}
 				fw.append('\n');
